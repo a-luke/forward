@@ -2,6 +2,7 @@ package com.luke.json.tostring;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * Created by yangf on 2017/3/30.
@@ -181,8 +182,8 @@ public class ToStringHandle {
 
     private static boolean isNumberType(Object obj) {
         return obj == null || obj instanceof Byte || obj instanceof Short || obj instanceof Integer
-            || obj instanceof Long || obj instanceof Float || obj instanceof Double
-            || obj instanceof Boolean || obj instanceof Date;
+                || obj instanceof Long || obj instanceof Float || obj instanceof Double
+                || obj instanceof Boolean || obj instanceof Date;
     }
 
     private static boolean isBaseType(Object obj) {
@@ -192,8 +193,8 @@ public class ToStringHandle {
     private static boolean isBaseArray(Object obj) {
         Class clazz = obj.getClass();
         return char[].class == clazz || byte[].class == clazz || short[].class == clazz
-            || int[].class == clazz || long[].class == clazz || float[].class == clazz
-            || double[].class == clazz || boolean[].class == clazz;
+                || int[].class == clazz || long[].class == clazz || float[].class == clazz
+                || double[].class == clazz || boolean[].class == clazz;
     }
 
     private static String wipeESC(String str) {

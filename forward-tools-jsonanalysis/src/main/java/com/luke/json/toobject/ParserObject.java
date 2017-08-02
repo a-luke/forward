@@ -5,6 +5,7 @@ import com.luke.json.model.Node;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.*;
 
 /**
  * Created by yangf on 2017/4/5.
@@ -111,7 +112,7 @@ public class ParserObject {
     }
 
     private static void setFieldValue(Object obj, List<Field> allField, Node node)
-        throws Exception {
+            throws Exception {
         for (Field field : allField) {
             field.setAccessible(true);
             if (isBaseType(field.getType())) {
@@ -174,8 +175,8 @@ public class ParserObject {
 
     private static boolean isNumberType(Class obj) {
         return obj == null || obj == Byte.class || obj == Short.class || obj == Integer.class
-            || obj == Long.class || obj == Float.class || obj == Double.class
-            || obj == Boolean.class || obj == Date.class;
+                || obj == Long.class || obj == Float.class || obj == Double.class
+                || obj == Boolean.class || obj == Date.class;
     }
 
     private static boolean isBaseType(Class obj) {
@@ -185,8 +186,8 @@ public class ParserObject {
     private static boolean isBaseArray(Object obj) {
         Class clazz = obj.getClass();
         return char[].class == clazz || byte[].class == clazz || short[].class == clazz
-            || int[].class == clazz || long[].class == clazz || float[].class == clazz
-            || double[].class == clazz || boolean[].class == clazz;
+                || int[].class == clazz || long[].class == clazz || float[].class == clazz
+                || double[].class == clazz || boolean[].class == clazz;
     }
 }
 
