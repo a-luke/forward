@@ -1,10 +1,13 @@
 package com.luke.analysis;
 
+import com.luke.analysis.traverse.TraverseSource;
+import com.luke.analysis.traverse.impl.TraverseFileLineStr;
 import com.luke.enums.AccessType;
 import com.luke.enums.ClassType;
 import com.luke.enums.GSType;
 import com.luke.enums.ModifierType;
 import com.luke.model.WordModel;
+import com.luke.utils.FileHandle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +23,17 @@ public class AnalysisWord {
     private List<WordModel> wordModels = new ArrayList<>();
 
     /**
-     * 数据源对象
+     * 遍历数据源对象
      */
-    private TraverseSource source;
+    private TraverseSource<Character> traverse;
 
     public AnalysisWord(String path) {
-        source = new TraverseSource(path);
-        analysis();
+        try {
+            traverse = new TraverseFileLineStr(FileHandle.readToStr(path));
+            analysis();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -35,15 +42,15 @@ public class AnalysisWord {
      */
     public void analysis() {
         StringBuilder sb = new StringBuilder();
-        Character c = source.nextChar();
-        if(c == ' '){
+        Character c = traverse.next();
+        if (c == ' ') {
             analysis();
             return;
         }
         sb.append(c);
         GSType type = GSType.has(c);
         //注释类型
-        if (type == GSType.LXG && (source.nextChar(1) == '/' || source.nextChar(1) == '*')) {
+        if (type == GSType.LXG && (traverse.next(1) == '/' || traverse.next(1) == '*')) {
             joinNote(sb);
         } else if (type == GSType.SY) {
             //字符串类型
@@ -53,22 +60,22 @@ public class AnalysisWord {
             joinWord(sb);
         }
         String str = sb.toString();
-        if(!"".equals(str.replaceAll("( |\t)*", ""))){
+        if (!"".equals(str.replaceAll("( |\t)*", ""))) {
             WordModel wordModel = new WordModel().setType(type);
             AccessType accessType = AccessType.has(str);
             ClassType classType = null;
             ModifierType modifierType = null;
             //设置单词的类型
             wordModel.setWdType(accessType == null ?
-                ((classType = ClassType.has(str)) == null ?
-                    ((modifierType = ModifierType.has(str)) == null ?
-                        null :
-                        modifierType) :
-                    classType) :
-                accessType);
+                    ((classType = ClassType.has(str)) == null ?
+                            ((modifierType = ModifierType.has(str)) == null ?
+                                    null :
+                                    modifierType) :
+                            classType) :
+                    accessType);
             wordModels.add(wordModel.setWord(str));
         }
-        if(source.nextChar(1) != null){
+        if (traverse.next(1) != null) {
             analysis();
         }
     }
@@ -77,13 +84,13 @@ public class AnalysisWord {
      * 组合注释
      */
     public void joinNote(StringBuilder sb) {
-        if (source.nextChar(1) == '*') {
-            while (!(source.nextChar(-1) == '*' && source.nextChar(0) == '/')) {
-                sb.append(source.nextChar());
+        if (traverse.next(1) == '*') {
+            while (!(traverse.next(-1) == '*' && traverse.next(0) == '/')) {
+                sb.append(traverse.next());
             }
-        } else if (source.nextChar(1) == '/') {
-            while (source.nextChar(0) != '\n') {
-                sb.append(source.nextChar());
+        } else if (traverse.next(1) == '/') {
+            while (traverse.next(0) != '\n') {
+                sb.append(traverse.next());
             }
         }
     }
@@ -93,8 +100,8 @@ public class AnalysisWord {
      */
     public void joinWord(StringBuilder sb) {
         Character c = 'a';
-        while ((c = source.nextChar(1)) != ' ' && GSType.has(c) == GSType.WD) {
-            sb.append(source.nextChar());
+        while ((c = traverse.next(1)) != ' ' && GSType.has(c) == GSType.WD) {
+            sb.append(traverse.next());
         }
     }
 
@@ -102,8 +109,8 @@ public class AnalysisWord {
      * 字符串算作一个单词
      */
     public void joinStr(StringBuilder sb) {
-        while (source.nextChar(0) != '\"' && source.nextChar(-1) != '\\') {
-            sb.append(source.nextChar());
+        while (traverse.next(0) != '\"' && traverse.next(-1) != '\\') {
+            sb.append(traverse.next());
         }
     }
 

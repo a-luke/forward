@@ -1,28 +1,21 @@
-package com.luke.analysis;
+package com.luke.analysis.traverse.impl;
 
-import com.luke.utils.FileHandle;
+import com.luke.analysis.traverse.TraverseSource;
 
 import java.util.List;
 
-/**
- * Created by yangf on 2017/8/2/0002.
- * 用来获取数据源中的每个字符
- */
-public class TraverseSource {
+public class TraverseFileLineStr implements TraverseSource {
     private List<String> source;
     private Integer lineIndex = null;
     private Integer charIndex = -1;
     private String lineStr = "";
 
-    public TraverseSource(String path) {
-        try {
-            source = FileHandle.readToStr(path);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public TraverseFileLineStr(List<String> source) {
+        this.source = source;
     }
 
-    public Character nextChar() {
+    @Override
+    public Character next() {
         if (isArrayIndexOut()) {
             return null;
         }
@@ -33,7 +26,8 @@ public class TraverseSource {
         return this.lineStr.charAt(++charIndex);
     }
 
-    public Character nextChar(Integer index) {
+    @Override
+    public Character next(Integer index) {
         if (isArrayIndexOut()) {
             return null;
         }
@@ -60,8 +54,8 @@ public class TraverseSource {
         return source.get((this.lineIndex == null ? 0 : this.lineIndex) + index).trim() + "\n";
     }
 
+    @Override
     public boolean isArrayIndexOut() {
         return lineIndex != null && (lineIndex < 0 || lineIndex >= source.size() - 1);
     }
-
 }

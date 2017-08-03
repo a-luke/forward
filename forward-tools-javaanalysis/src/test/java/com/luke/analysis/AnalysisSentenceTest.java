@@ -6,7 +6,7 @@ package com.luke.analysis;
 public class AnalysisSentenceTest {
 
     public static void main(String[] args) {
-        AbstractSentenceAnalysis analysisSentence = new AnalysisSentence(TraverseSourceTest.PATH);
+        AnalysisSentence analysisSentence = new AnalysisSentence(TraverseSourceTest.PATH);
         System.out.println(analysisSentence.getSentence());
     }
 }

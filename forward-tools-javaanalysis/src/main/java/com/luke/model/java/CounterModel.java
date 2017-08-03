@@ -1,4 +1,4 @@
-package com.luke.model;
+package com.luke.model.java;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

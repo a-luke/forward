@@ -12,6 +12,7 @@
         <module>forward-base-important</module>
         <module>forward-demo-activemq</module>
         <module>forward-demo-zookeeper</module>
+        <module>forward-tools-javaanalysis</module>
     </modules>
 
     <build>

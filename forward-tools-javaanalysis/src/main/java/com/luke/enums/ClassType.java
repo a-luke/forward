@@ -21,4 +21,8 @@ public enum ClassType {
         }
         return null;
     }
+
+    public static boolean isClass(ClassType ct){
+        return ct == ClassType.CLASS || ct == ClassType.ENUM || ct == ClassType.INTERFACE;
+    }
 }

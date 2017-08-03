@@ -1,4 +1,4 @@
-package com.luke.model;
+package com.luke.model.java.chunk;
 
 /**
  * Created by yangf on 2017/8/1/0001.

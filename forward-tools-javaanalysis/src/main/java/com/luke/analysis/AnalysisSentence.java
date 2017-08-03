@@ -1,5 +1,7 @@
 package com.luke.analysis;
 
+import com.luke.analysis.traverse.TraverseSource;
+import com.luke.analysis.traverse.impl.TraverseList;
 import com.luke.enums.GSType;
 import com.luke.model.WordModel;
 
@@ -9,21 +11,20 @@ import java.util.List;
 /**
  * Created by yangf on 2017/8/2/0002.
  */
-public class AnalysisSentence extends AbstractSentenceAnalysis {
-    public List<List<WordModel>> sentence;
-
+public class AnalysisSentence{
+    private List<List<WordModel>> sentence;
+    private TraverseSource<WordModel> traverse;
+    private Integer index = -1;
 
     public AnalysisSentence(String path) {
-        super(path);
+        sentence = new ArrayList<>();
+        traverse = new TraverseList(new AnalysisWord(path).getWordModels());
+        analysis();
     }
 
-    @Override
-    protected void analysis(){
-        if(sentence == null){
-            sentence = new ArrayList<>();
-        }
+    private void analysis(){
         List<WordModel> wordModels = new ArrayList<>();
-        WordModel wordModel = next();
+        WordModel wordModel = traverse.next();
         //如果是回车就重新获取下一个
         if(wordModel.getType() == GSType.RXG){
             analysis();
@@ -33,8 +34,8 @@ public class AnalysisSentence extends AbstractSentenceAnalysis {
         wordModels.add(wordModel);
 
         if(!GSType.isLineEnd( wordModel.getType())){
-            while (next(0).getType() != GSType.FH && !GSType.isLineEnd(next(1).getType())){
-                WordModel nwm = next();
+            while (traverse.next(0).getType() != GSType.FH && !GSType.isLineEnd(traverse.next(1).getType())){
+                WordModel nwm = traverse.next();
                 if(nwm.getType() != GSType.RXG){
                     wordModels.add(nwm);
                 }
@@ -42,7 +43,7 @@ public class AnalysisSentence extends AbstractSentenceAnalysis {
         }
         sentence.add(wordModels);
 
-        if(!isEnd()){
+        if(!traverse.isArrayIndexOut()){
             analysis();
         }
 
@@ -51,5 +52,6 @@ public class AnalysisSentence extends AbstractSentenceAnalysis {
     public List<List<WordModel>> getSentence(){
         return this.sentence;
     }
+
 
 }
