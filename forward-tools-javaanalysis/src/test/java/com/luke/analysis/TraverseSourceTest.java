@@ -8,7 +8,8 @@ import com.luke.utils.FileHandle;
  * Created by yangf on 2017/8/2/0002.
  */
 public class TraverseSourceTest {
-    public static final String PATH = "D:\\Workspace\\gitHub\\forward\\forward-tools-javaanalysis\\src\\main\\java\\com\\luke\\analysis\\AnalysisWord.java";
+    public static final String PATH = "D:\\WorkSpace\\java\\fbicrawler\\fbicrawler-business\\src\\main\\java\\com\\firstbrave\\crawler\\parser\\news\\news\\mobile"
+        + "\\ParseIfengNewsMobile.java";
 
     public static void main(String[] args) throws Exception {
         new TraverseSourceTest().traverse();

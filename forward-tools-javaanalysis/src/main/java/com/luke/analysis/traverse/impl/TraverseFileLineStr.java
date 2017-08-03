@@ -58,4 +58,9 @@ public class TraverseFileLineStr implements TraverseSource {
     public boolean isArrayIndexOut() {
         return lineIndex != null && (lineIndex < 0 || lineIndex >= source.size() - 1);
     }
+
+    @Override
+    public Integer getIndex() {
+        return null;
+    }
 }

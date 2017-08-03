@@ -25,11 +25,11 @@ public class CounterModel {
 
     public static void main(String[] args) {
         CounterModel counterModel = new CounterModel();
-        counterModel.addStep();
         System.out.println(counterModel.isEnd());
+        counterModel.addStep();
         System.out.println(counterModel.step);
+        System.out.println(counterModel.isEnd());
         counterModel.minusStep();
         System.out.println(counterModel.step);
-        System.out.println(counterModel.isEnd());
     }
 }

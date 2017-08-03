@@ -2,10 +2,7 @@ package com.luke.analysis;
 
 import com.luke.analysis.traverse.TraverseSource;
 import com.luke.analysis.traverse.impl.TraverseFileLineStr;
-import com.luke.enums.AccessType;
-import com.luke.enums.ClassType;
-import com.luke.enums.GSType;
-import com.luke.enums.ModifierType;
+import com.luke.enums.*;
 import com.luke.model.WordModel;
 import com.luke.utils.FileHandle;
 
@@ -62,18 +59,9 @@ public class AnalysisWord {
         String str = sb.toString();
         if (!"".equals(str.replaceAll("( |\t)*", ""))) {
             WordModel wordModel = new WordModel().setType(type);
-            AccessType accessType = AccessType.has(str);
-            ClassType classType = null;
-            ModifierType modifierType = null;
-            //设置单词的类型
-            wordModel.setWdType(accessType == null ?
-                    ((classType = ClassType.has(str)) == null ?
-                            ((modifierType = ModifierType.has(str)) == null ?
-                                    null :
-                                    modifierType) :
-                            classType) :
-                    accessType);
-            wordModels.add(wordModel.setWord(str));
+
+            //设置单词的类型,并添加到list中
+            wordModels.add(wordModel.setWord(str).setWdType(KeyWordType.has(str)));
         }
         if (traverse.next(1) != null) {
             analysis();
@@ -109,9 +97,11 @@ public class AnalysisWord {
      * 字符串算作一个单词
      */
     public void joinStr(StringBuilder sb) {
-        while (traverse.next(0) != '\"' && traverse.next(-1) != '\\') {
-            sb.append(traverse.next());
+        Character c = 'a';
+        while ((c = traverse.next()) != '\"' || traverse.next(-1) == '\\') {
+            sb.append(c);
         }
+        sb.append(c);
     }
 
     public List<WordModel> getWordModels() {

@@ -23,8 +23,26 @@ public enum GSType {
         return GSType.WD;
     }
 
-    public static boolean isLineEnd(GSType type) {
+    /**
+     * 判断是否是单独的一行，花括号和注释都当作单独的行处理
+     *
+     * @param type
+     * @return
+     */
+    public static boolean isAloneLine(GSType type) {
         return type == GSType.LD || type == GSType.RD || type == GSType.LXG;
     }
 
+    public static boolean isChunkGist(GSType type) {
+        return type == GSType.LD || type == GSType.RD;
+    }
+
+    /**
+     * 是否是小括号
+     *
+     * @return
+     */
+    public static boolean isX(GSType type) {
+        return type == GSType.LX || type == GSType.RX;
+    }
 }

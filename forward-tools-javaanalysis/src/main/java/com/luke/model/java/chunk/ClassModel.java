@@ -1,8 +1,9 @@
 package com.luke.model.java.chunk;
 
-import com.luke.enums.ClassType;
+import com.luke.enums.KeyWordType;
 import com.luke.model.java.BaseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class ClassModel extends BaseModel {
     /**
      * 类的类型，是接口还是抽象
      */
-    private ClassType classType;
+    private KeyWordType classType;
 
     /**
      * 依赖包名
@@ -53,15 +54,18 @@ public class ClassModel extends BaseModel {
         this.packageStr = packageStr;
     }
 
-    public ClassType getClassType() {
+    public KeyWordType getClassType() {
         return classType;
     }
 
-    public void setClassType(ClassType classType) {
+    public void setClassType(KeyWordType classType) {
         this.classType = classType;
     }
 
     public List<String> getDependNames() {
+        if(dependNames == null){
+            dependNames = new ArrayList<>();
+        }
         return dependNames;
     }
 
@@ -69,7 +73,15 @@ public class ClassModel extends BaseModel {
         this.dependNames = dependNames;
     }
 
+    public ClassModel addDependNames(String dependName) {
+        getDependNames().add(dependName);
+        return this;
+    }
+
     public List<FieldModel> getFieldModels() {
+        if(fieldModels == null){
+            fieldModels = new ArrayList<>();
+        }
         return fieldModels;
     }
 
@@ -77,7 +89,15 @@ public class ClassModel extends BaseModel {
         this.fieldModels = fieldModels;
     }
 
+    public ClassModel addFieldModels(FieldModel fieldModel) {
+        getFieldModels().add(fieldModel);
+        return this;
+    }
+
     public List<MethodModel> getMethodModels() {
+        if(methodModels == null){
+            methodModels = new ArrayList<>();
+        }
         return methodModels;
     }
 
@@ -85,7 +105,15 @@ public class ClassModel extends BaseModel {
         this.methodModels = methodModels;
     }
 
+    public ClassModel addMethodModels(MethodModel methodModel) {
+        getMethodModels().add(methodModel);
+        return this;
+    }
+
     public List<ClassModel> getClassModels() {
+        if(classModels == null){
+            classModels = new ArrayList<>();
+        }
         return classModels;
     }
 
@@ -93,11 +121,25 @@ public class ClassModel extends BaseModel {
         this.classModels = classModels;
     }
 
+
+    public ClassModel addClassModels(ClassModel classModel) {
+        getClassModels().add(classModel);
+        return this;
+    }
+
     public List<CodeChunkModel> getCodeChunkModels() {
+        if(codeChunkModels == null){
+            codeChunkModels = new ArrayList<>();
+        }
         return codeChunkModels;
     }
 
     public void setCodeChunkModels(List<CodeChunkModel> codeChunkModels) {
         this.codeChunkModels = codeChunkModels;
+    }
+
+    public ClassModel addCodeChunkModels(CodeChunkModel codeChunkModel) {
+        getCodeChunkModels().add(codeChunkModel);
+        return this;
     }
 }

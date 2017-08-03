@@ -7,4 +7,6 @@ public interface TraverseSource<T> {
     public T next(Integer index);
 
     public boolean isArrayIndexOut();
+
+    public Integer getIndex();
 }

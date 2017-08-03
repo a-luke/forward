@@ -1,13 +1,14 @@
 package com.luke.model;
 
 import com.luke.enums.GSType;
+import com.luke.enums.KeyWordType;
 
 public class WordModel {
 
     /**
      * 单词的类型
      */
-    private Object wdType;
+    private KeyWordType wdType;
 
     /**
      * 类型
@@ -19,12 +20,13 @@ public class WordModel {
      */
     private String word;
 
-    public Object getWdType() {
+    public KeyWordType getWdType() {
         return wdType;
     }
 
-    public void setWdType(Object wdType) {
+    public WordModel setWdType(KeyWordType wdType) {
         this.wdType = wdType;
+        return this;
     }
 
     public GSType getType() {

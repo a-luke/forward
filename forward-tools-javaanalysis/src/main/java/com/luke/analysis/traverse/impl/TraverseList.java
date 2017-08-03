@@ -15,7 +15,11 @@ public class TraverseList<T> implements TraverseSource<T> {
 
     @Override
     public T next() {
-        return source.get(++index);
+        int step = ++index;
+        if (step >= source.size()) {
+            return null;
+        }
+        return source.get(step);
     }
 
     @Override
@@ -30,5 +34,10 @@ public class TraverseList<T> implements TraverseSource<T> {
     @Override
     public boolean isArrayIndexOut() {
         return index >= source.size() - 1;
+    }
+
+    @Override
+    public Integer getIndex() {
+        return index;
     }
 }

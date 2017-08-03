@@ -33,8 +33,23 @@ public class AnalysisSentence{
 
         wordModels.add(wordModel);
 
-        if(!GSType.isLineEnd( wordModel.getType())){
-            while (traverse.next(0).getType() != GSType.FH && !GSType.isLineEnd(traverse.next(1).getType())){
+        if(wordModel.getWord().startsWith("@")){
+            Integer step = -10;
+            while (step != 0){
+                if(step == -10){
+                    step = 0;
+                }
+                if(traverse.next(1).getType() == GSType.LX){
+                    ++step;
+                }
+                if(traverse.next(1).getType() == GSType.RX){
+                    --step;
+                }
+                wordModels.add(traverse.next());
+            }
+
+        }else if(!GSType.isAloneLine( wordModel.getType())){
+            while (traverse.next(0).getType() != GSType.FH && !GSType.isAloneLine(traverse.next(1).getType())){
                 WordModel nwm = traverse.next();
                 if(nwm.getType() != GSType.RXG){
                     wordModels.add(nwm);
