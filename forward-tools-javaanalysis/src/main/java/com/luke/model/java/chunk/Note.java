@@ -19,7 +19,7 @@ public class Note {
     private String formatContent;
 
     public List<String> getContent() {
-        if(content == null){
+        if (content == null) {
             content = new ArrayList<>();
         }
         return content;
@@ -42,7 +42,7 @@ public class Note {
         this.formatContent = formatContent;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return getContent().isEmpty();
     }
 }

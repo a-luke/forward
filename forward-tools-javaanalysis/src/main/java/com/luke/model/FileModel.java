@@ -5,6 +5,7 @@ package com.luke.model;
  */
 public class FileModel {
     private String path;
+    private String name;
     private StringBuilder content;
 
     public String getPath() {
@@ -15,8 +16,16 @@ public class FileModel {
         this.path = path;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public StringBuilder getContent() {
-        if(content == null){
+        if (content == null) {
             content = new StringBuilder();
         }
         return content;

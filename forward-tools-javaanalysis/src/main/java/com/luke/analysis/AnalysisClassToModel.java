@@ -178,7 +178,7 @@ public class AnalysisClassToModel {
         if (!methodModel.isEnd()) {
             methodModel.appendContent(join(traverseLine.next()));
             analysisMethod(methodModel);
-        }else if(methodModel.getContent() != null){
+        } else if (methodModel.getContent() != null) {
             methodModel.appendContent(join(traverseLine.next()));
         }
     }
@@ -279,21 +279,21 @@ public class AnalysisClassToModel {
             fieldModel.appendContent(join(traverseLine.next()));
             analysisField(fieldModel);
         } else {
-            List<WordModel> wordModels = traverseLine.next(0);
-            WordModel wordModel = wordModels.get(wordModels.size() - 1);
-            if (wordModel.getType() != GSType.FH) {
+            List<WordModel> nwms = traverseLine.next(1);
+            WordModel nwm = nwms.get(nwms.size() - 1);
+            fieldModel.appendContent(join(traverseLine.next()));
+            if (nwm.getType() != GSType.FH) {
                 analysisField(fieldModel);
             }
         }
 
     }
 
-    private void loadCodeChunk(CodeChunkModel codeChunkModel, List<WordModel> wordModels){
+    private void loadCodeChunk(CodeChunkModel codeChunkModel, List<WordModel> wordModels) {
         KeyWordType type = wordModels.get(0).getWdType();
-        if(type == KeyWordType.STATIC){
+        if (type == KeyWordType.STATIC) {
             codeChunkModel.setStatic(true);
             codeChunkModel.addModifierTypes(type);
-            traverseLine.next();
         }
     }
 
@@ -301,7 +301,7 @@ public class AnalysisClassToModel {
      * 处理代码块
      */
     private void analysisCodeChunk(CodeChunkModel codeChunkModel) {
-        ChunkType chunkType = getType(0);
+        ChunkType chunkType = getType(1);
         if (chunkType == ChunkType.LD) {
             codeChunkModel.addStep();
         } else if (chunkType == ChunkType.RD) {
@@ -310,7 +310,7 @@ public class AnalysisClassToModel {
         if (!codeChunkModel.isEnd()) {
             codeChunkModel.appendContent(join(traverseLine.next()));
             analysisCodeChunk(codeChunkModel);
-        }else if(codeChunkModel.getContent() != null){
+        } else if (codeChunkModel.getContent() != null) {
             codeChunkModel.appendContent(join(traverseLine.next()));
         }
     }
@@ -351,12 +351,12 @@ public class AnalysisClassToModel {
         TraverseSource<WordModel> traverse = new TraverseList(wordModels);
 
         //是注解的开始
-        if (wordModels.get(0).getWord().startsWith("@")) {
+        WordModel wordModel = wordModels.get(0);
+        if (wordModel.getWord().startsWith("@") && wordModel.getWdType() != KeyWordType.ANNOCLASS) {
             return ChunkType.ANNOTATION;
         }
 
         if (wordModels.size() == 1) {
-            WordModel wordModel = wordModels.get(0);
             //是代码块的开始
             if (wordModel.getWdType() == KeyWordType.STATIC) {
                 return ChunkType.CHUNK;
@@ -372,20 +372,20 @@ public class AnalysisClassToModel {
 
             //是注释或者括号
             return wordModel.getType() == GSType.LD ?
-                ChunkType.LD :
-                (wordModel.getType() == GSType.RD ? ChunkType.RD : (wordModel.getType() == GSType.LXG ? ChunkType.NOTE : null));
+                    ChunkType.LD :
+                    (wordModel.getType() == GSType.RD ? ChunkType.RD : (wordModel.getType() == GSType.LXG ? ChunkType.NOTE : null));
         }
 
         while (traverse.next(1) != null) {
-            WordModel wordModel = traverse.next();
-            KeyWordType keyWordType = wordModel.getWdType();
+            WordModel whileWM = traverse.next();
+            KeyWordType keyWordType = whileWM.getWdType();
             //是类的开始
             if (KeyWordType.isClass(keyWordType)) {
                 return ChunkType.ClASS;
             }
 
             //是方法的开始
-            GSType type = wordModel.getType();
+            GSType type = whileWM.getType();
             if (type != GSType.LX) {
                 continue;
             }

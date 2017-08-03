@@ -90,12 +90,12 @@ public class BaseModel extends CounterModel {
     }
 
     public BaseModel appendContent(String content) {
-        getContent().append(content);
+        getContent().append(content + "\n");
         return this;
     }
 
     public List<AnnotationModel> getAnnotationModels() {
-        if(annotationModels == null){
+        if (annotationModels == null) {
             annotationModels = new ArrayList<>();
         }
         return annotationModels;
@@ -119,7 +119,7 @@ public class BaseModel extends CounterModel {
     }
 
     public KeyWordType getAccessType() {
-        if(accessType == null){
+        if (accessType == null) {
             accessType = KeyWordType.DEFAULT;
         }
         return accessType;
@@ -130,7 +130,7 @@ public class BaseModel extends CounterModel {
     }
 
     public List<KeyWordType> getModifierTypes() {
-        if(modifierTypes == null){
+        if (modifierTypes == null) {
             modifierTypes = new ArrayList<>();
         }
         return modifierTypes;

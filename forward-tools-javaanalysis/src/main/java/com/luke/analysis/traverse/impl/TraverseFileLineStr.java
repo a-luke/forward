@@ -31,7 +31,7 @@ public class TraverseFileLineStr implements TraverseSource {
         if (isArrayIndexOut()) {
             return null;
         }
-        Integer count = index + (this.charIndex == -1 ? 0 : this.charIndex);
+        Integer count = index + (this.charIndex == -1 ? (index == 0 ? 0 : -1) : this.charIndex);
         String line = nextLine(0);
         Integer lineStep = 0;
         while (count < 0 || count >= line.length()) {

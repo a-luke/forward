@@ -5,7 +5,7 @@ package com.luke.enums;
  */
 public enum KeyWordType {
     PUBLIC("public"), PRIVATE("private"), PROTECTED("protected"), DEFAULT("!@*&"), INTERFACE("interface"), CLASS("class"), ENUM("enum"), ABSTRACT("abstract"),
-    IMPORT("import"), PACKAGE("package"), STATIC("static"), FINAL("final"), VOLATILE("volatile"), VOID("void"), WD("!@*&");
+    IMPORT("import"), PACKAGE("package"), STATIC("static"), FINAL("final"), VOLATILE("volatile"), VOID("void"), WD("!@*&"), ANNOCLASS("@interface");
 
     private String value;
 
@@ -22,16 +22,16 @@ public enum KeyWordType {
         }
         return WD;
     }
-    
-    public static boolean isClass(KeyWordType kt){
-        return kt == KeyWordType.CLASS || kt == KeyWordType.ENUM || kt == KeyWordType.INTERFACE;
+
+    public static boolean isClass(KeyWordType kt) {
+        return kt == KeyWordType.CLASS || kt == KeyWordType.ENUM || kt == KeyWordType.INTERFACE || kt == KeyWordType.ANNOCLASS;
     }
 
-    public static boolean isAccess(KeyWordType kt){
+    public static boolean isAccess(KeyWordType kt) {
         return kt == KeyWordType.PUBLIC || kt == KeyWordType.PRIVATE || kt == KeyWordType.PROTECTED || kt == KeyWordType.DEFAULT;
     }
 
-    public static boolean isModifier(KeyWordType kt){
+    public static boolean isModifier(KeyWordType kt) {
         return kt == KeyWordType.STATIC || kt == KeyWordType.FINAL || kt == KeyWordType.VOLATILE || kt == KeyWordType.ABSTRACT;
     }
 }

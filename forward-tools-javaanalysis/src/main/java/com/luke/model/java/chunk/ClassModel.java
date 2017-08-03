@@ -47,6 +47,17 @@ public class ClassModel extends BaseModel {
     private List<CodeChunkModel> codeChunkModels;
 
     public String getPackageStr() {
+        if (packageStr == null) {
+            ClassModel prev = this;
+            String name = "";
+            while ((prev = prev.getPrev()) != null) {
+                name = this.getName().toLowerCase() + "/" + name;
+                if (prev.getPackageStr() != null) {
+                    packageStr = prev.getPackageStr() + "/" + name;
+                    break;
+                }
+            }
+        }
         return packageStr;
     }
 
@@ -63,7 +74,7 @@ public class ClassModel extends BaseModel {
     }
 
     public List<String> getDependNames() {
-        if(dependNames == null){
+        if (dependNames == null) {
             dependNames = new ArrayList<>();
         }
         return dependNames;
@@ -79,7 +90,7 @@ public class ClassModel extends BaseModel {
     }
 
     public List<FieldModel> getFieldModels() {
-        if(fieldModels == null){
+        if (fieldModels == null) {
             fieldModels = new ArrayList<>();
         }
         return fieldModels;
@@ -95,7 +106,7 @@ public class ClassModel extends BaseModel {
     }
 
     public List<MethodModel> getMethodModels() {
-        if(methodModels == null){
+        if (methodModels == null) {
             methodModels = new ArrayList<>();
         }
         return methodModels;
@@ -111,7 +122,7 @@ public class ClassModel extends BaseModel {
     }
 
     public List<ClassModel> getClassModels() {
-        if(classModels == null){
+        if (classModels == null) {
             classModels = new ArrayList<>();
         }
         return classModels;
@@ -128,7 +139,7 @@ public class ClassModel extends BaseModel {
     }
 
     public List<CodeChunkModel> getCodeChunkModels() {
-        if(codeChunkModels == null){
+        if (codeChunkModels == null) {
             codeChunkModels = new ArrayList<>();
         }
         return codeChunkModels;

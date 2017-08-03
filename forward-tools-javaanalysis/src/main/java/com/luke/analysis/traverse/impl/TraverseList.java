@@ -24,7 +24,7 @@ public class TraverseList<T> implements TraverseSource<T> {
 
     @Override
     public T next(Integer index) {
-        int step = (this.index == -1 ? 0 : this.index) + index;
+        int step = (this.index == -1 ? (index == 0 ? 0 : -1) : this.index) + index;
         if (step < 0 || step >= source.size()) {
             return null;
         }
