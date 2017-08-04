@@ -3,6 +3,7 @@ package com.luke.analysis;
 import com.luke.analysis.traverse.TraverseSource;
 import com.luke.analysis.traverse.impl.TraverseList;
 import com.luke.enums.GSType;
+import com.luke.enums.KeyWordType;
 import com.luke.model.WordModel;
 
 import java.util.ArrayList;
@@ -33,7 +34,10 @@ public class AnalysisSentence {
 
         wordModels.add(wordModel);
 
-        if (wordModel.getWord().startsWith("@")) {
+        /**
+         * 注解分解为一行
+         */
+        if (wordModel.getWord().startsWith("@") && wordModel.getWdType() != KeyWordType.ANNOCLASS && traverse.next(1).getType() == GSType.LX) {
             Integer step = -10;
             while (step != 0) {
                 if (step == -10) {
@@ -47,9 +51,15 @@ public class AnalysisSentence {
                 }
                 wordModels.add(traverse.next());
             }
+        } else if (!GSType.isAloneLine(wordModel.getType()) &&
+            (!wordModel.getWord().startsWith("@") || wordModel.getWdType() == KeyWordType.ANNOCLASS)) {
+            while (traverse.next(0).getType() != GSType.FH &&
+                !GSType.isAloneLine(traverse.next(1).getType()) &&
+                (!traverse.next(1).getWord().startsWith("@") ||
+                    traverse.next(1).getWdType() == KeyWordType.ANNOCLASS
+                )
+                ) {
 
-        } else if (!GSType.isAloneLine(wordModel.getType())) {
-            while (traverse.next(0).getType() != GSType.FH && !GSType.isAloneLine(traverse.next(1).getType())) {
                 WordModel nwm = traverse.next();
                 if (nwm.getType() != GSType.RXG) {
                     wordModels.add(nwm);
@@ -64,9 +74,10 @@ public class AnalysisSentence {
 
     }
 
+
+
     public List<List<WordModel>> getSentence() {
         return this.sentence;
     }
-
 
 }

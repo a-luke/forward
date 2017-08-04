@@ -45,4 +45,13 @@ public class Note {
     public boolean isEmpty() {
         return getContent().isEmpty();
     }
+
+    public void clear(){
+        this.content.clear();
+    }
+
+    public void addAll(Note note){
+        getContent().addAll(note.getContent());
+        formatContent = note.formatContent;
+    }
 }

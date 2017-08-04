@@ -23,6 +23,9 @@ public enum KeyWordType {
         return WD;
     }
 
+    public String getValue(){
+        return this.value;
+    }
     public static boolean isClass(KeyWordType kt) {
         return kt == KeyWordType.CLASS || kt == KeyWordType.ENUM || kt == KeyWordType.INTERFACE || kt == KeyWordType.ANNOCLASS;
     }

@@ -71,6 +71,9 @@ public class BaseModel extends CounterModel {
     }
 
     public String getHeader() {
+        if(header == null){
+            header = "";
+        }
         return header;
     }
 

@@ -1,12 +1,15 @@
 package com.luke.export;
 
 import com.luke.analysis.AnalysisClassToModel;
+import com.luke.enums.KeyWordType;
 import com.luke.model.FileModel;
 import com.luke.model.java.BaseModel;
 import com.luke.model.java.chunk.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by yangf on 2017/8/3/0003.
@@ -29,14 +32,19 @@ public class ExportClassModel {
         fileModel.appendContent("package " + classModel.getPackageStr() + "\n");
         fileModel.appendContent(trasImport(classModel));
         loadFileModel(classModel, fileModel);
-        fileModel.setName(classModel.getName());
+
+        Pattern pattern = Pattern.compile("^[^<]*");
+        Matcher matcher = pattern.matcher(classModel.getName());
+        matcher.find();
+        fileModel.setName(matcher.group());
+
         fileModel.setPath(classModel.getPackageStr().replace(".", "/").replace(";", "").trim());
     }
 
     public void loadFileModel(ClassModel classModel, FileModel fileModel) {
         fileModel.appendContent(trasNote(classModel));
         fileModel.appendContent(trasAnnotation(classModel));
-        fileModel.appendContent(classModel.getHeader());
+        fileModel.appendContent(classModel.getHeader().replace(KeyWordType.STATIC.getValue(), ""));
         fileModel.appendContent("{\n");
         fileModel.appendContent(trasChunk(classModel));
         fileModel.appendContent(trasField(classModel));
@@ -85,6 +93,7 @@ public class ExportClassModel {
         for (CodeChunkModel codeChunkModel : codeChunkModels) {
             sb.append(trasNote(codeChunkModel));
             sb.append(trasAnnotation(codeChunkModel));
+            sb.append(codeChunkModel.getHeader());
             sb.append(codeChunkModel.getContent() + "\n");
         }
         return sb.toString();
@@ -118,11 +127,7 @@ public class ExportClassModel {
     private void trasClass(ClassModel classModel, FileModel fileModel) {
         for (ClassModel cm : classModel.getClassModels()) {
             if (cm.isStatic() && prevIsStatic(cm)) {
-                FileModel fm = new FileModel();
-                fileModels.add(fm);
-                fm.setPath(cm.getPackageStr().replace(".", "/"));
-                fm.setName(cm.getName());
-                loadFileModel(cm, fm);
+                loadRootClassModel(cm);
             } else {
                 loadFileModel(cm, fileModel);
             }

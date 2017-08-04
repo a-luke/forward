@@ -5,6 +5,8 @@ import com.luke.model.java.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by yangf on 2017/8/1/0001.
@@ -49,11 +51,20 @@ public class ClassModel extends BaseModel {
     public String getPackageStr() {
         if (packageStr == null) {
             ClassModel prev = this;
-            String name = "";
+            String packageNm = "";
             while ((prev = prev.getPrev()) != null) {
-                name = this.getName().toLowerCase() + "/" + name;
+                String matStr = prev.getName();
+                if(matStr.indexOf("<") != -1){
+                    Pattern pattern = Pattern.compile("^[^<]*");
+                    Matcher matcher = pattern.matcher(matStr);
+                    matcher.find();
+                    matStr = matcher.group();
+                }
+
+                packageNm = matStr.toLowerCase() + "." + packageNm;
                 if (prev.getPackageStr() != null) {
-                    packageStr = prev.getPackageStr() + "/" + name;
+                    String path = prev.getPackageStr().replace(";","").replace(" ", "");
+                    packageStr = path + "." + packageNm;
                     break;
                 }
             }
