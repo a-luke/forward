@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
 public class TestC {
     public static void main(String[] args) {
         ClassModel classModel = new AnalysisClassToModel(TraverseSourceTest.PATH).getRootClass();
+        {
 
+        }
         List<ClassModel> classModels = classModel.getClassModels();
         for(ClassModel cm : classModels){
             if(!cm.getClassModels().isEmpty()){

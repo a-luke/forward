@@ -43,7 +43,7 @@ public class LoadSourceToEnum extends LoadSourceAbstract<FieldModel, List<WordMo
         if (fieldModel.getHeader().endsWith(";")) {
             return;
         }
-        ChunkType chunkType = getType(1);
+        ChunkType chunkType = getType(1, ChunkType.METHOD);
         if (chunkType == ChunkType.LD) {
             fieldModel.addStep();
         } else if (chunkType == ChunkType.RD) {

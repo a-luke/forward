@@ -42,7 +42,7 @@ public class LoadSourceCodeChunk extends LoadSourceAbstract<CodeChunkModel, List
 
     @Override
     public void analysis(CodeChunkModel codeChunkModel) {
-        ChunkType chunkType = getType(1);
+        ChunkType chunkType = getType(1, ChunkType.METHOD);
         if (chunkType == ChunkType.LD) {
             codeChunkModel.addStep();
         } else if (chunkType == ChunkType.RD) {

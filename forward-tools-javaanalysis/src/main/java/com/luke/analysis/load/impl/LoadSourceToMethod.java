@@ -61,7 +61,7 @@ public class LoadSourceToMethod extends LoadSourceAbstract<MethodModel, List<Wor
         if (methodModel.getHeader().endsWith(GSType.FH.value())) {
             return;
         }
-        ChunkType chunkType = getType(1);
+        ChunkType chunkType = getType(1, ChunkType.METHOD);
         if (chunkType == ChunkType.LD) {
             methodModel.addStep();
         } else if (chunkType == ChunkType.RD) {

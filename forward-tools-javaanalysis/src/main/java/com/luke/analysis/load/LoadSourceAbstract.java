@@ -62,7 +62,7 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
     public ChunkType getType(int index) {
         List<WordModel> wordModels = traverseLine.next(index);
 
-        if(wordModels == null){
+        if (wordModels == null) {
             return null;
         }
 
@@ -80,7 +80,9 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
                 return ChunkType.CHUNK;
             } else if (wordModel.getType() == GSType.LD) {
                 List<WordModel> pWMs = null;
-                while ((pWMs = traverseLine.next(index - 1)).get(0).getType() == GSType.LXG) {
+                int whileI = -1;
+                while ((pWMs = traverseLine.next(index + whileI)).get(0).getType() == GSType.LXG) {
+                    whileI--;
                 }
                 WordModel pWM = pWMs.get(0);
                 if (GSType.isChunkGist(pWM.getType()) || pWMs.get(pWMs.size() - 1).getType() == GSType.FH) {
@@ -103,7 +105,6 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
                 return ChunkType.ClASS;
             }
 
-
             GSType type = whileWM.getType();
             if (type != GSType.LX) {
                 continue;
@@ -112,7 +113,7 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
             for (int i = 0, len = traverse.getIndex(); i < len; i++) {
                 WordModel wm = wordModels.get(i);
                 //判断当前是不是枚举的属性
-                if(wm.getType() == GSType.DH || traverse.getIndex() == 1){
+                if (wm.getType() == GSType.DH || traverse.getIndex() == 1) {
                     return ChunkType.ENUM;
                 }
 
@@ -132,13 +133,32 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
         return ChunkType.FIELD;
     }
 
+    public ChunkType getType(int index, ChunkType type) {
+        List<WordModel> wordModels = traverseLine.next(index);
+
+        if (wordModels == null) {
+            return null;
+        }
+
+        if (type == ChunkType.METHOD) {
+            TraverseSource<WordModel> traverse = new TraverseList(wordModels);
+
+            WordModel wordModel = wordModels.get(0);
+            //是括号或者代码块
+            return wordModel.getType() == GSType.LD ? ChunkType.LD : (wordModel.getType() == GSType.RD ? ChunkType.RD : ChunkType.CHUNK);
+
+        }
+        return null;
+    }
+
     /**
      * 添加注释和注解
+     *
      * @param baseModel 类、方法、字段, 枚举
      */
-    protected void addNoteAndAnnotation(BaseModel baseModel){
+    protected void addNoteAndAnnotation(BaseModel baseModel) {
         if (!annotationModel.isEmpty()) {
-            List<AnnotationModel> annotationModels  = new ArrayList<>();
+            List<AnnotationModel> annotationModels = new ArrayList<>();
             annotationModels.addAll(annotationModel);
             baseModel.setAnnotationModels(annotationModels);
             annotationModel.clear();
