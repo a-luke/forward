@@ -49,7 +49,7 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
                 sb.append(" ");
             }
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     /**
@@ -112,14 +112,21 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
             boolean methodFlag = true;
             for (int i = 0, len = traverse.getIndex(); i < len; i++) {
                 WordModel wm = wordModels.get(i);
+
                 //判断当前是不是枚举的属性
-                if (wm.getType() == GSType.DH || traverse.getIndex() == 1) {
-                    return ChunkType.ENUM;
-                }
+//                if ((wm.getType() == GSType.DH)) {
+//                    WordModel pwm = wordModels.get(i - 1);
+//                    if (!pwm.getWord().contains("<") && !pwm.getWord().contains(">")) {
+//                        return ChunkType.ENUM;
+//                    }
+//                }
+//
+//                if (traverse.getIndex() == 1) {
+//                    return ChunkType.ENUM;
+//                }
 
                 if (wm.getType() != GSType.SY && wm.getWord().contains("=")) {
                     methodFlag = false;
-                    break;
                 }
             }
 
