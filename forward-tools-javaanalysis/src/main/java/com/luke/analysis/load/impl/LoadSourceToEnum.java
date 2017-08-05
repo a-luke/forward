@@ -29,7 +29,12 @@ public class LoadSourceToEnum extends LoadSourceAbstract<FieldModel, List<WordMo
         fieldModel.setEnum(true);
         classModel.addFieldModels(fieldModel);
         load(fieldModel, wordModels);
-        analysis(fieldModel);
+
+        ChunkType chunkType = getType(1, ChunkType.METHOD);
+        if (!fieldModel.getHeader().endsWith(GSType.FH.value()) && chunkType == ChunkType.LD) {
+            analysis(fieldModel);
+        }
+
     }
 
     @Override
@@ -41,10 +46,6 @@ public class LoadSourceToEnum extends LoadSourceAbstract<FieldModel, List<WordMo
     @Override
     public void analysis(FieldModel fieldModel) {
         ChunkType chunkType = getType(1, ChunkType.METHOD);
-        if (fieldModel.getHeader().endsWith(";") || chunkType != ChunkType.LD) {
-            return;
-        }
-
         if (chunkType == ChunkType.LD) {
             fieldModel.addStep();
         } else if (chunkType == ChunkType.RD) {

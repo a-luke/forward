@@ -30,7 +30,11 @@ public class LoadSourceToField extends LoadSourceAbstract<FieldModel, List<WordM
         classModel.addFieldModels(fieldModel);
         fieldModel.setEnum(false);
         load(fieldModel, wordModels);
-        analysis(fieldModel);
+
+        ChunkType chunkType = getType(1, ChunkType.METHOD);
+        if (!fieldModel.getHeader().endsWith(GSType.FH.value()) && chunkType == ChunkType.LD) {
+            analysis(fieldModel);
+        }
     }
 
     @Override
@@ -60,9 +64,6 @@ public class LoadSourceToField extends LoadSourceAbstract<FieldModel, List<WordM
     @Override
     public void analysis(FieldModel fieldModel) {
         ChunkType chunkType = getType(1, ChunkType.METHOD);
-        if (fieldModel.getHeader().endsWith(GSType.FH.value())|| chunkType != ChunkType.LD) {
-            return;
-        }
 
         if (chunkType == ChunkType.LD) {
             fieldModel.addStep();

@@ -96,6 +96,9 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
                 (wordModel.getType() == GSType.RD ? ChunkType.RD : (wordModel.getType() == GSType.LXG ? ChunkType.NOTE : ChunkType.ENUM));
         }
 
+
+
+
         //判断是类或者方法
         while (traverse.next(1) != null) {
             WordModel whileWM = traverse.next();
@@ -112,18 +115,6 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
             boolean methodFlag = true;
             for (int i = 0, len = traverse.getIndex(); i < len; i++) {
                 WordModel wm = wordModels.get(i);
-
-                //判断当前是不是枚举的属性
-//                if ((wm.getType() == GSType.DH)) {
-//                    WordModel pwm = wordModels.get(i - 1);
-//                    if (!pwm.getWord().contains("<") && !pwm.getWord().contains(">")) {
-//                        return ChunkType.ENUM;
-//                    }
-//                }
-//
-//                if (traverse.getIndex() == 1) {
-//                    return ChunkType.ENUM;
-//                }
 
                 if (wm.getType() != GSType.SY && wm.getWord().contains("=")) {
                     methodFlag = false;
