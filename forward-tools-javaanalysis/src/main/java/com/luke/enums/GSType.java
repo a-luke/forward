@@ -45,7 +45,7 @@ public enum GSType {
         return type == GSType.LX || type == GSType.RX;
     }
 
-    public String value(){
+    public String value() {
         return String.valueOf(this.value);
     }
 }

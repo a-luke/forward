@@ -1,8 +1,9 @@
-package com.luke.analysis;
+package com.luke.analysis.word;
 
-import com.luke.analysis.traverse.TraverseSource;
-import com.luke.analysis.traverse.impl.TraverseFileLineStr;
-import com.luke.enums.*;
+import com.luke.analysis.classes.traverse.TraverseSource;
+import com.luke.analysis.classes.traverse.impl.TraverseFileLineStr;
+import com.luke.enums.GSType;
+import com.luke.enums.KeyWordType;
 import com.luke.model.WordModel;
 import com.luke.utils.FileHandle;
 
@@ -32,7 +33,6 @@ public class AnalysisWord {
             e.printStackTrace();
         }
     }
-
 
     /**
      * 分析字符提炼单词

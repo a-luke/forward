@@ -1,7 +1,7 @@
-package com.luke.analysis.load;
+package com.luke.analysis.classes.load;
 
-import com.luke.analysis.traverse.TraverseSource;
-import com.luke.analysis.traverse.impl.TraverseList;
+import com.luke.analysis.classes.traverse.TraverseSource;
+import com.luke.analysis.classes.traverse.impl.TraverseList;
 import com.luke.enums.ChunkType;
 import com.luke.enums.GSType;
 import com.luke.enums.KeyWordType;
@@ -95,9 +95,6 @@ public abstract class LoadSourceAbstract<T, D, O> implements LoadSource<T, D, O>
                 ChunkType.LD :
                 (wordModel.getType() == GSType.RD ? ChunkType.RD : (wordModel.getType() == GSType.LXG ? ChunkType.NOTE : ChunkType.ENUM));
         }
-
-
-
 
         //判断是类或者方法
         while (traverse.next(1) != null) {

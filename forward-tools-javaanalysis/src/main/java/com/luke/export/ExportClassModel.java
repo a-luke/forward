@@ -1,6 +1,6 @@
 package com.luke.export;
 
-import com.luke.analysis.AnalysisClassToModel;
+import com.luke.analysis.classes.AnalysisClassToModel;
 import com.luke.enums.KeyWordType;
 import com.luke.model.FileModel;
 import com.luke.model.java.BaseModel;

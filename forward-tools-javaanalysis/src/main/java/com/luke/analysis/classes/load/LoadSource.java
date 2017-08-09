@@ -1,7 +1,7 @@
-package com.luke.analysis.load;
+package com.luke.analysis.classes.load;
 
-import com.luke.analysis.load.impl.*;
-import com.luke.analysis.traverse.TraverseSource;
+import com.luke.analysis.classes.load.impl.*;
+import com.luke.analysis.classes.traverse.TraverseSource;
 import com.luke.enums.ChunkType;
 import com.luke.model.WordModel;
 import com.luke.model.java.chunk.AnnotationModel;
@@ -14,17 +14,17 @@ import java.util.List;
  */
 public interface LoadSource<T, D, O> {
 
-    public void addNewChunk(O o, D d);
+    void addNewChunk(O o, D d);
 
-    public void load(T t, D d);
+    void load(T t, D d);
 
-    public void analysis(T t);
+    void analysis(T t);
 
-    public ChunkType getType(int index);
+    ChunkType getType(int index);
 
-    public String join(List<WordModel> wordModels);
+    String join(List<WordModel> wordModels);
 
-    public static LoadSource newInstance(ChunkType chunkType, TraverseSource<List<WordModel>> traverseLine, Note note, List<AnnotationModel> annotationModel) {
+    static LoadSource newInstance(ChunkType chunkType, TraverseSource<List<WordModel>> traverseLine, Note note, List<AnnotationModel> annotationModel) {
         switch (chunkType) {
             case ClASS:
                 return new LoadSourceToClass(traverseLine, note, annotationModel);

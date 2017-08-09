@@ -50,7 +50,7 @@ public class FileHandle {
     }
 
     public static void main(String[] args) throws Exception {
-//        System.out.println(readToStr("D:\\WorkSpace\\java\\mydemo\\src\\main\\java\\com\\luke\\model\\ClassModel.java"));
+        //        System.out.println(readToStr("D:\\WorkSpace\\java\\mydemo\\src\\main\\java\\com\\luke\\model\\ClassModel.java"));
         System.out.println(PATH);
     }
 }

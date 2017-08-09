@@ -1,5 +1,6 @@
 package com.luke.analysis;
 
+import com.luke.analysis.classes.AnalysisClassToModel;
 import com.luke.model.java.chunk.ClassModel;
 
 /**

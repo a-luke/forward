@@ -1,7 +1,8 @@
-package com.luke.analysis;
+package com.luke.analysis.classes;
 
-import com.luke.analysis.traverse.TraverseSource;
-import com.luke.analysis.traverse.impl.TraverseList;
+import com.luke.analysis.classes.traverse.TraverseSource;
+import com.luke.analysis.classes.traverse.impl.TraverseList;
+import com.luke.analysis.word.AnalysisWord;
 import com.luke.enums.GSType;
 import com.luke.enums.KeyWordType;
 import com.luke.model.WordModel;

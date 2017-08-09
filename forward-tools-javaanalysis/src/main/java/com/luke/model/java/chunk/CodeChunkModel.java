@@ -8,5 +8,4 @@ import com.luke.model.java.BaseModel;
  */
 public class CodeChunkModel extends BaseModel {
 
-
 }

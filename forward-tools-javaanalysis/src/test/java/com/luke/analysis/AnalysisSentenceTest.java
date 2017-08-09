@@ -1,5 +1,7 @@
 package com.luke.analysis;
 
+import com.luke.analysis.classes.AnalysisSentence;
+
 /**
  * Created by yangf on 2017/8/2/0002.
  */

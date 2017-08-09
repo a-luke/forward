@@ -4,8 +4,8 @@ package com.luke.enums;
  * Created by yangf on 2017/8/3/0003.
  */
 public enum KeyWordType {
-    PUBLIC("public"), PRIVATE("private"), PROTECTED("protected"), DEFAULT("!@*&"), INTERFACE("interface"), CLASS("class"), ENUM("enum"), ABSTRACT("abstract"),
-    IMPORT("import"), PACKAGE("package"), STATIC("static"), FINAL("final"), VOLATILE("volatile"), VOID("void"), WD("!@*&"), ANNOCLASS("@interface");
+    PUBLIC("public"), PRIVATE("private"), PROTECTED("protected"), DEFAULT("!@*&"), INTERFACE("interface"), CLASS("class"), ENUM("enum"), ABSTRACT("abstract"), IMPORT(
+        "import"), PACKAGE("package"), STATIC("static"), FINAL("final"), VOLATILE("volatile"), VOID("void"), WD("!@*&"), ANNOCLASS("@interface");
 
     private String value;
 
@@ -23,9 +23,10 @@ public enum KeyWordType {
         return WD;
     }
 
-    public String getValue(){
+    public String getValue() {
         return this.value;
     }
+
     public static boolean isClass(KeyWordType kt) {
         return kt == KeyWordType.CLASS || kt == KeyWordType.ENUM || kt == KeyWordType.INTERFACE || kt == KeyWordType.ANNOCLASS;
     }

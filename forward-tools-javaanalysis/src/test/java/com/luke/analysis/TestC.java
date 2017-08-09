@@ -1,5 +1,6 @@
 package com.luke.analysis;
 
+import com.luke.analysis.classes.AnalysisClassToModel;
 import com.luke.model.java.chunk.ClassModel;
 
 import java.util.List;
@@ -13,10 +14,10 @@ public class TestC {
 
         }
         List<ClassModel> classModels = classModel.getClassModels();
-        for(ClassModel cm : classModels){
-            if(!cm.getClassModels().isEmpty()){
+        for (ClassModel cm : classModels) {
+            if (!cm.getClassModels().isEmpty()) {
                 List<ClassModel> cms1 = cm.getClassModels();
-                for(ClassModel cm1: cms1){
+                for (ClassModel cm1 : cms1) {
                     System.out.println(cm1.getPackageStr());
                 }
 
@@ -25,17 +26,15 @@ public class TestC {
 
     }
 
-
-    public static void matcher(){
+    public static void matcher() {
         Pattern pattern = Pattern.compile("^[^<]*");
         Matcher matcher = pattern.matcher("ByteArray<T");
         matcher.find();
         System.out.println(matcher.group());
     }
 
-    @interface Aa{
+    @interface Aa {
 
     }
-
 
 }

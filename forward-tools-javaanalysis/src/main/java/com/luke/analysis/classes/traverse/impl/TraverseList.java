@@ -1,6 +1,6 @@
-package com.luke.analysis.traverse.impl;
+package com.luke.analysis.classes.traverse.impl;
 
-import com.luke.analysis.traverse.TraverseSource;
+import com.luke.analysis.classes.traverse.TraverseSource;
 
 import java.util.List;
 
