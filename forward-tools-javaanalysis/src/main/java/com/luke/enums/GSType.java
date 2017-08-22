@@ -4,7 +4,7 @@ package com.luke.enums;
  * Created by yangf on 2017/8/1/0001.
  */
 public enum GSType {
-    LX('('), RX(')'), LD('{'), RD('}'), DH(','), FH(';'), WD('a'), SY('\"'), LXG('/'), RXG('\n'), LGX('*');
+    LX('('), RX(')'), LD('{'), RD('}'), LJK('<'), RJK('>'), DH(','), FH(';'), WD('a'), SY('\"'), LXG('/'), RXG('\n'), LGX('*');
 
     private Character value;
 

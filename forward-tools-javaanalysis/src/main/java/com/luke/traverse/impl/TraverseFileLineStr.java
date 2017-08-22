@@ -1,6 +1,6 @@
-package com.luke.analysis.classes.traverse.impl;
+package com.luke.traverse.impl;
 
-import com.luke.analysis.classes.traverse.TraverseSource;
+import com.luke.traverse.TraverseSource;
 
 import java.util.List;
 
@@ -16,11 +16,11 @@ public class TraverseFileLineStr implements TraverseSource {
 
     @Override
     public Character next() {
-        if (isArrayIndexOut()) {
-            return null;
-        }
-        if (charIndex == -1 || charIndex >= lineStr.length() - 1) {
+        if (charIndex >= lineStr.length() - 1) {
             this.lineStr = nextLine();
+            if(lineStr == null){
+                return null;
+            }
             this.charIndex = -1;
         }
         return this.lineStr.charAt(++charIndex);
@@ -28,30 +28,46 @@ public class TraverseFileLineStr implements TraverseSource {
 
     @Override
     public Character next(Integer index) {
-        if (isArrayIndexOut()) {
+        if (lineIndex < 0 || lineIndex >= source.size()) {
             return null;
         }
-        Integer count = index + (this.charIndex == -1 ? (index == 0 ? 0 : -1) : this.charIndex);
+
+        Integer count = index + (this.charIndex == -1 ? 0 : this.charIndex);
         String line = nextLine(0);
         Integer lineStep = 0;
+
         while (count < 0 || count >= line.length()) {
             if (count < 0) {
                 line = nextLine(--lineStep);
+                if (line == null) {
+                    return null;
+                }
                 count = count + line.length();
             } else if (count >= line.length()) {
                 count = count - line.length();
                 line = nextLine(++lineStep);
+                if (line == null) {
+                    return null;
+                }
             }
         }
         return line.charAt(count);
     }
 
     private String nextLine() {
-        return source.get(lineIndex == null ? lineIndex = 0 : ++lineIndex).trim() + "\n";
+        int ind = lineIndex == null ? lineIndex = 0 : ++lineIndex;
+        if(ind >= source.size()){
+            return null;
+        }
+        return source.get(ind).trim() + "\n";
     }
 
     private String nextLine(Integer index) {
-        return source.get((this.lineIndex == null ? 0 : this.lineIndex) + index).trim() + "\n";
+        int ind = (this.lineIndex == null ? 0 : this.lineIndex) + index;
+        if (ind < 0 || ind >= source.size()) {
+            return null;
+        }
+        return source.get(ind).trim() + "\n";
     }
 
     @Override

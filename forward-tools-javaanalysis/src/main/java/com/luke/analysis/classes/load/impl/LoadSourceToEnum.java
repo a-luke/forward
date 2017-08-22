@@ -1,7 +1,7 @@
 package com.luke.analysis.classes.load.impl;
 
 import com.luke.analysis.classes.load.LoadSourceAbstract;
-import com.luke.analysis.classes.traverse.TraverseSource;
+import com.luke.traverse.TraverseSource;
 import com.luke.enums.ChunkType;
 import com.luke.enums.GSType;
 import com.luke.model.WordModel;

@@ -18,6 +18,15 @@ public class FileHandle {
         PATH = PATH.substring(0, PATH.indexOf(pro) + pro.length()) + "resource/";
     }
 
+    private static final List<String> ignoreFile = new ArrayList() {
+        {
+            add("DownloadSingleFile.java");
+            add("DownloadVideoFiles.java");
+            add("StorageAllocator.java");
+            add("StorageDirImpl.java");
+        }
+    };
+
     public static List<String> readToStr(String path) throws Exception {
         List<String> result = new ArrayList<String>();
         File file = new File(path);
@@ -47,6 +56,28 @@ public class FileHandle {
         ps.print(fileModel.getContent());
         ps.close();
         fos.close();
+    }
+
+    public static void traversePath(List<String> paths, String path) {
+        File file = new File(path);
+        if (file.isDirectory()) {
+            String[] filePaths = file.list();
+            for (String filePath : filePaths) {
+                traversePath(paths, path + File.separator + filePath);
+            }
+        } else if (file.isFile()) {
+            String absolutePath = file.getAbsolutePath();
+            boolean flag = true;
+            for(String ignore: ignoreFile){
+                if(absolutePath.endsWith(ignore)){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                paths.add(absolutePath);
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {

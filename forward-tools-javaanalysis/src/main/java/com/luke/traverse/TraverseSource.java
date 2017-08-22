@@ -1,4 +1,4 @@
-package com.luke.analysis.classes.traverse;
+package com.luke.traverse;
 
 public interface TraverseSource<T> {
 

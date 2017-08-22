@@ -6,10 +6,13 @@ import com.luke.aliyun.utils.PathUtil;
 import org.quartz.SchedulerException;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -58,7 +61,6 @@ public class MyFrame extends JFrame {
         }
         startBtn.setEnabled(true);
 
-
     }
 
     public MyFrame() {
@@ -87,11 +89,9 @@ public class MyFrame extends JFrame {
             trayIcon = new TrayIcon(image);
             systemTray.add(trayIcon);//设置托盘的图标
         } catch (IOException e) {
-            writeErrToLog(e,
-                getNow() + "[ path load fail ]: please check ( PathUtil.LOGO_ICO )");
+            writeErrToLog(e, getNow() + "[ path load fail ]: please check ( PathUtil.LOGO_ICO )");
         } catch (AWTException e) {
-            writeErrToLog(e,
-                getNow() + "[ path load fail ]: please check ( PathUtil.LOGO_ICO )");
+            writeErrToLog(e, getNow() + "[ path load fail ]: please check ( PathUtil.LOGO_ICO )");
         }
 
         addWindowListener(new WindowAdapter() {
@@ -100,14 +100,13 @@ public class MyFrame extends JFrame {
             }
         });
 
-        addWindowListener( new WindowAdapter()
-        {
-            public void windowClosing( WindowEvent e ) {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
                 try {
                     removeJob(jobKey, triggerKey);
                 } catch (SchedulerException e1) {
                     writeErrToLog(e1, getNow() + "[ remove job fail ]: ", e1.getMessage());
-                }finally {
+                } finally {
                     System.exit(0);
                 }
             }

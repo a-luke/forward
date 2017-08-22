@@ -1,7 +1,7 @@
 package com.luke.analysis.word;
 
-import com.luke.analysis.classes.traverse.TraverseSource;
-import com.luke.analysis.classes.traverse.impl.TraverseFileLineStr;
+import com.luke.traverse.TraverseSource;
+import com.luke.traverse.impl.TraverseFileLineStr;
 import com.luke.enums.GSType;
 import com.luke.enums.KeyWordType;
 import com.luke.model.WordModel;
@@ -40,6 +40,9 @@ public class AnalysisWord {
     public void analysis() {
         StringBuilder sb = new StringBuilder();
         Character c = traverse.next();
+        if (c == null) {
+            return;
+        }
         if (c == ' ') {
             analysis();
             return;
@@ -47,15 +50,20 @@ public class AnalysisWord {
         sb.append(c);
         GSType type = GSType.has(c);
         //注释类型
-        if (type == GSType.LXG && (traverse.next(1) == '/' || traverse.next(1) == '*')) {
-            joinNote(sb);
-        } else if (type == GSType.SY) {
-            //字符串类型
-            joinStr(sb);
-        } else if (type == GSType.WD) {
-            //普通单词
-            joinWord(sb);
+        try {
+            if (type == GSType.LXG && (traverse.next(1) == '/' || traverse.next(1) == '*')) {
+                joinNote(sb);
+            } else if (type == GSType.SY) {
+                //字符串类型
+                joinStr(sb);
+            } else if (type == GSType.WD) {
+                //普通单词
+                joinWord(sb);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
         String str = sb.toString();
         if (!"".equals(str.replaceAll("( |\t)*", ""))) {
             WordModel wordModel = new WordModel().setType(type);
@@ -73,12 +81,16 @@ public class AnalysisWord {
      */
     public void joinNote(StringBuilder sb) {
         if (traverse.next(1) == '*') {
-            while (!(traverse.next(-1) == '*' && traverse.next(0) == '/')) {
+            while (!(traverse.next(-1) != null && traverse.next(-1) == '*' && traverse.next(0) == '/')) {
                 sb.append(traverse.next());
             }
         } else if (traverse.next(1) == '/') {
-            while (traverse.next(0) != '\n') {
-                sb.append(traverse.next());
+            while (traverse.next(1) != null && traverse.next(0) != '\n') {
+                Character c = traverse.next();
+                if(c == null){
+                    break;
+                }
+                sb.append(c);
             }
         }
     }
@@ -88,7 +100,7 @@ public class AnalysisWord {
      */
     public void joinWord(StringBuilder sb) {
         Character c = 'a';
-        while ((c = traverse.next(1)) != ' ' && GSType.has(c) == GSType.WD) {
+        while ((c = traverse.next(1)) != null && c != ' ' && GSType.has(c) == GSType.WD) {
             sb.append(traverse.next());
         }
     }
@@ -97,11 +109,18 @@ public class AnalysisWord {
      * 字符串算作一个单词
      */
     public void joinStr(StringBuilder sb) {
-        Character c = 'a';
-        while ((c = traverse.next()) != '\"' || traverse.next(-1) == '\\') {
-            sb.append(c);
+        while (true) {
+            sb.append(traverse.next());
+            if(traverse.next(0) == '\"'){
+                int i = 0, j = 0;
+                while (traverse.next(--i) == '\\'){
+                    j++;
+                }
+                if(j % 2 == 0){
+                    break;
+                }
+            }
         }
-        sb.append(c);
     }
 
     public List<WordModel> getWordModels() {

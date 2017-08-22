@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>forward</artifactId>
@@ -8,12 +7,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.luke.json</groupId>
-    <artifactId>forward-tools-jsonanalysis</artifactId>
+    <groupId>com.luke</groupId>
+    <artifactId>forward-tools-crawl</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>forward-tools-jsonanalysis</name>
+    <name>forward-tools-crawl</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -22,9 +21,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+            <version>1.7.7.1</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,56 +1,36 @@
 package com.luke.analysis;
 
-import com.luke.analysis.classes.traverse.TraverseSource;
-import com.luke.analysis.classes.traverse.impl.TraverseFileLineStr;
+import com.luke.traverse.TraverseSource;
+import com.luke.traverse.impl.TraverseFileLineStr;
 import com.luke.utils.FileHandle;
+import org.junit.Test;
 
 /**
  * Created by yangf on 2017/8/2/0002.
  */
 public class TraverseSourceTest {
     //    public static final String PATH = "D:\\TestC.java";
-    public static final String PATH = "D:\\workspaces\\VideoCrawlProject-project\\src\\com\\application\\util\\CommonUtil.java";
+    public static final String PATH = "D:\\WorkSpace\\java\\fbicrawler\\fbicrawler-core\\src\\main\\java\\com\\firstbrave\\crawler\\download\\DownloadWorkerResult.java";
 
-    public static void main(String[] args) throws Exception {
-        new TraverseSourceTest().traverse();
+    @Test
+    public void traverse() throws Exception {
+        TraverseSource<Character> traverseSource = new TraverseFileLineStr(FileHandle.readToStr(PATH));
+        //        System.out.println(traverseSource.next());
+        Character c = null;
+        while ((c = traverseSource.next()) != null) {
+            System.out.print(c);
+        }
     }
 
-    public void traverse() throws Exception {
-        TraverseSource traverseSource = new TraverseFileLineStr(FileHandle.readToStr(PATH));
+
+    @Test
+    public void traverse1() throws Exception {
+        TraverseSource<Character> traverseSource = new TraverseFileLineStr(FileHandle.readToStr(PATH));
         //        System.out.println(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next());
-        System.out.print(traverseSource.next(0));
+        int i = 0;
+        Character c = null;
+        while ((c = traverseSource.next(i++)) != null) {
+            System.out.print(c);
+        }
     }
 }
