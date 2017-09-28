@@ -14,9 +14,11 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.introspect.JacksonAnnotationIntrospector;
 import org.codehaus.jackson.type.TypeReference;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.*;
 import java.util.List;
 
 import static com.luke.aliyun.initConfInfo.AnalyzeConf.CONF_MAP;
@@ -53,13 +55,13 @@ public class DescribeDomainRecords {
             FileUtil propertiesUtil = new FileUtil();
             FileUtil.writeToLog(null, Color.blue, "please option record by you want update! copy to [ record.properties ]\n");
             for (int i = 0; i < recordList.size(); i++) {
-                FileUtil.writeSuccessToLog("Record" + i + "=" + recordList.get(i) + "\n");propMap.put("Record" + i, recordList.get(i));
+                FileUtil.writeSuccessToLog("Record" + i + "=" + recordList.get(i) + "\n");
+                propMap.put("Record" + i, recordList.get(i));
             }
             propertiesUtil.WriteProperties(propMap, PathUtil.RESULT_RECORD_FILE);
             return !(recordList == null || recordList.isEmpty());
         } catch (IOException e) {
-            FileUtil.writeErrToLog(e, getNow() + "[ load fail by" + PathUtil.CONF_FILE + " ]\n",
-                e.getMessage());
+            FileUtil.writeErrToLog(e, getNow() + "[ load fail by" + PathUtil.CONF_FILE + " ]\n", e.getMessage());
             return false;
         }
 
@@ -83,12 +85,12 @@ public class DescribeDomainRecords {
                 recordJsonStr.add(record.toString());
             }
         } catch (IOException e) {
-            FileUtil.writeErrToLog(e, getNow() + "[ "+key + ":" + CONF_MAP.get(key)+" ]Error Json--", str,
-                "[ error message ]:" );
+            FileUtil.writeErrToLog(e, getNow() + "[ " + key + ":" + CONF_MAP.get(key) + " ]Error Json--", str, "[ error message ]:");
         } finally {
             return recordJsonStr;
         }
     }
+
     //请求经过处理的url拿到返回包含所有记录的json字符串
     public static String getUrlResult(String... httpUrl) {
         BufferedReader reader = null;
@@ -106,8 +108,8 @@ public class DescribeDomainRecords {
                 resultStr = EntityUtils.toString(entity);
             }
         } catch (IOException e) {
-            if(httpUrl.length <= 1)
-            FileUtil.writeErrToLog(e, getNow() + "[ Site access exception, error message]:");
+            if (httpUrl.length <= 1)
+                FileUtil.writeErrToLog(e, getNow() + "[ Site access exception, error message]:");
         } finally {
             return resultStr;
         }

@@ -1,17 +1,16 @@
 package com.luke.aliyun.initConfInfo;
 
 import com.luke.aliyun.model.Record;
-import com.luke.aliyun.utils.FileUtil;
 import com.luke.aliyun.utils.PathUtil;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import static com.luke.aliyun.settingJob.UpdateDomainRecordJob.WEB_IP;
 import static com.luke.aliyun.utils.FileUtil.getAllProperties;
-import static com.luke.aliyun.utils.UTCTimeUtil.getNow;
 
 /**
  * Created by Administrator on 2016/7/6.
@@ -41,7 +40,7 @@ public class AnalyzeConf {
         try {
             recordMap = getAllProperties(PathUtil.RECORD_FILE);
         } catch (IOException e) {
-            FileUtil.writeErrToLog(e, getNow() + "[ load failure by ]:" + PathUtil.RECORD_FILE + "\n[ error message ]:");
+            e.printStackTrace();
         }
         ObjectMapper mapper = new ObjectMapper();
         Set<String> keySet = recordMap.keySet();

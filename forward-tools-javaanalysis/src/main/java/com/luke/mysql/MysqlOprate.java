@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class MysqlOprate {
 
-    private static final String url = "jdbc:mysql://localhost:3306/classtest?" + "user=root&password=123qwe@"
+    private static final String url = "jdbc:mysql://localhost:3306/fbi?" + "user=root&password=123qwe@"
         + "&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public static void execute(List<String> sqls) throws Exception {

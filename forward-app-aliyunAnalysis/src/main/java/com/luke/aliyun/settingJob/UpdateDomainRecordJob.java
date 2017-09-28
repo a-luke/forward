@@ -9,6 +9,7 @@ import com.luke.aliyun.utils.GetPublicIP;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.quartz.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,8 +21,7 @@ import static com.luke.aliyun.utils.UTCTimeUtil.getNow;
  */
 public class UpdateDomainRecordJob implements Job {
     public static JobKey jobKey = new JobKey("UpdateDomainRecordJob", "UpdateJob-group");
-    public static TriggerKey
-        triggerKey = new TriggerKey("UpdateDomainRecordTrigger", "UpdateTrigger-group");
+    public static TriggerKey triggerKey = new TriggerKey("UpdateDomainRecordTrigger", "UpdateTrigger-group");
 
     public static String WEB_IP = "";
 
@@ -31,12 +31,12 @@ public class UpdateDomainRecordJob implements Job {
         GetPublicIP getPublicIP = new GetPublicIP();
         String webIp = getPublicIP.getWebIp();
         //打印执行次数
-//        insertDocument("[ exec  frequency ]:" + count++, Color.blue);
-        if("".equals(webIp) || WEB_IP.equals(webIp)){
+        //        insertDocument("[ exec  frequency ]:" + count++, Color.blue);
+        if ("".equals(webIp) || WEB_IP.equals(webIp)) {
             return;
         }
         //首次更新ip
-        if("".equals(WEB_IP)){
+        if ("".equals(WEB_IP)) {
             FileUtil.writeToLog(null, Color.BLUE, "First update! ip same as old, Don't care.");
         }
 
@@ -59,13 +59,11 @@ public class UpdateDomainRecordJob implements Job {
             UpdateResult updateResult = new UpdateResult();
             try {
                 updateResult = mapper.readValue(result, UpdateResult.class);
-                if(updateResult.getMessage() != null){
-                    FileUtil.writeErrToLog(null, getNow() + "[ record update fail ]:"
-                        ,"HostID: "+ updateResult.getHostId()
-                        ,"Code: " + updateResult.getCode()
-                        ,"ErrorMessage: "+ updateResult.getMessage());
-                }else {
-                    FileUtil.writeSuccessToLog(getNow() + "[ record update success ]: Domain - " + record.getValue()+ " RecordId - " + record.getRecordId());
+                if (updateResult.getMessage() != null) {
+                    FileUtil.writeErrToLog(null, getNow() + "[ record update fail ]:", "HostID: " + updateResult.getHostId(), "Code: " + updateResult.getCode(),
+                        "ErrorMessage: " + updateResult.getMessage());
+                } else {
+                    FileUtil.writeSuccessToLog(getNow() + "[ record update success ]: Domain - " + record.getValue() + " RecordId - " + record.getRecordId());
                 }
             } catch (IOException e) {
                 FileUtil.writeErrToLog(e, getNow() + "[ record update success ]:", record.toString(), e.getMessage());
