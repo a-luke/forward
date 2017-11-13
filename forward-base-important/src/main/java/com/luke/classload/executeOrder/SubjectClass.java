@@ -22,5 +22,12 @@ public class SubjectClass {
         System.out.println("静态方法！");
     }
 
-
+    public void test(){
+        String str = "ceshi";
+        {
+            String str1="你哈";
+            System.out.println(str1);
+        }
+        System.out.println("普通方法" + str);
+    }
 }

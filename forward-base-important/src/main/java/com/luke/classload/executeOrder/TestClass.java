@@ -8,6 +8,7 @@ public class TestClass {
 //        String str = SubjectClass.STR;
 //                new SubjectClass();
         SubjectClass.staticMethod();
-
+        SubjectClass subjectClass = new SubjectClass();
+        subjectClass.test();
     }
 }
