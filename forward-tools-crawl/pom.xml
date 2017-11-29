@@ -45,5 +45,12 @@
             <artifactId>htmlunit</artifactId>
             <version>2.27</version>
         </dependency>
+
+        <dependency>
+            <groupId>chrriis</groupId>
+            <artifactId>dj-nativeswing</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
     </dependencies>
 </project>

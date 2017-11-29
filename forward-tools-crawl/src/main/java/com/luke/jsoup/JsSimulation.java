@@ -82,7 +82,8 @@ public class JsSimulation {
         map.put("account", "");
         map.put("password", "");
         HttpClient client = getConnection();
-        HttpUriRequest post = getRequestMethod(map, "http://www.ttll.cc/dsj/dsj2/shixitianshiguoyu/bf-0-0.html", "get");
+//        HttpUriRequest post = getRequestMethod(map, "http://www.ttll.cc/dsj/dsj2/shixitianshiguoyu/bf-0-0.html", "get");
+        HttpUriRequest post = getRequestMethod(map, "http://127.0.0.1", "get");
         HttpResponse response = client.execute(post);
         if (response.getStatusLine().getStatusCode() == 200) {
             HttpEntity entity = response.getEntity();
@@ -99,7 +100,8 @@ public class JsSimulation {
     @Test
     public void testJsoup() throws Exception {
         long now = System.currentTimeMillis();
-        Document doc = Jsoup.connect("http://www.ttll.cc/dsj/dsj2/shixitianshiguoyu/bf-0-0.html")
+//        Document doc = Jsoup.connect("http://www.ttll.cc/dsj/dsj2/shixitianshiguoyu/bf-0-0.html")
+        Document doc = Jsoup.connect("http://127.0.0.1")
             .userAgent("Mozilla")
             .timeout(3000)
             .get();

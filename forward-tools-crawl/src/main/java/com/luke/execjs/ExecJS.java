@@ -1,4 +1,4 @@
-package com.luke.js;
+package com.luke.execjs;
 
 import org.junit.Test;
 import org.mozilla.javascript.Context;
