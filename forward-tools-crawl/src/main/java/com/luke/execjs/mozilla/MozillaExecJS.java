@@ -1,4 +1,4 @@
-package com.luke.execjs;
+package com.luke.execjs.mozilla;
 
 import org.junit.Test;
 import org.mozilla.javascript.Context;
@@ -12,7 +12,7 @@ import java.io.LineNumberReader;
 /**
  * Hello world!
  */
-public class ExecJS {
+public class MozillaExecJS {
 
     /**
      * 在 Java 中调用 JavaScript 脚本中的函数
@@ -58,7 +58,7 @@ public class ExecJS {
     public void importJsTools(){
         Context ct = Context.enter();
         Scriptable scope = ct.initStandardObjects();
-        String filename = ExecJS.class.getResource("/tools.js").getPath();
+        String filename = MozillaExecJS.class.getResource("/tools.js").getPath();
         try {
             LineNumberReader reader = new LineNumberReader(new FileReader(filename));
 

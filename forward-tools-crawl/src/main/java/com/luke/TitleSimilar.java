@@ -1,4 +1,4 @@
-package com.luke.similar;
+package com.luke;
 
 import java.util.ArrayList;
 import java.util.List;
