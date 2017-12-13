@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Title</title>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div>
+    <div>
+        <img id="imgValidateCodesss" phone = "" style="width: 80px;height: 40px;" src=""/>
+        <input style="width: 50px; height: 30px;"/>
+    </div>
+    <button id="create">创建</button>
+    <button id="register">注册</button>
+
+</div>
+
+<script type="text/javascript">
+    $("#create").click(function () {
+        $("#create").attr("disabled", "disabled");
+        $.ajax({
+            type: "get",
+            url: "/create",
+            dataType: "json",
+            success: function (data) {
+                console.info(data);
+                $("#imgValidateCodesss").attr("phone", data.phone);
+            },
+            complete: function () {
+                $("#create").removeAttr("disabled");
+            }
+        });
+    })
+    $("#imgValidateCodesss").click(function () {
+        if($(this).attr("phone") == ""){
+            alert("请点击创建按钮！");
+        }
+
+        if($("#imgValidateCodesss").hasClass("disabled")){
+            alert("请点稍等！");
+        }
+        $("#imgValidateCodesss").addClass("disabled");
+        $.ajax({
+            type: "get",
+            url: "/getSecurityCode",
+            dataType: "json",
+            data: {"phone": phone},
+            success: function (data) {
+                var image = "data:image/jpeg;base64,";
+                if (data.code == "1") {
+                    var src = image + data.data.img;
+                    $("#imgValidateCodesss").attr("src", src);
+                }
+            },
+            complete: function () {
+                $("#imgValidateCodesss").removeClass("disabled");
+            }
+        });
+    })
+
+
+    $("#register").click(function () {
+
+    })
+
+    console.info(1111);
+</script>
+</body>
+</html>
