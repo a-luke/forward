@@ -7,7 +7,7 @@ public class Receive {
 
     public Receive(){}
     public Receive(String content){
-        String[] arr = content.split("|");
+        String[] arr = content.split("\\|");
         status = Integer.valueOf(arr[0]);
         message = arr[1];
     }
@@ -39,7 +39,7 @@ public class Receive {
     }
 
     public static void main(String[] args) {
-        Receive receive = new Receive();
+        Receive receive = new Receive("1|qweqwasdfasdf");
         receive.setMessage("【财富中国】您的手机验证码为：11545，请在页面中输入以完成验证，验证码5分钟内有效。(来自106909993658)");
         System.out.println(receive.getMessage());
     }

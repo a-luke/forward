@@ -22,7 +22,7 @@ public class ReceiveCode {
     private static String TOKEN = "";
 
     public void getToken() throws IOException {
-        String url = GET_TOKEN_URL.replace("{name}", NAME).replace("password", PASSWORD);
+        String url = GET_TOKEN_URL.replace("{name}", NAME).replace("{password}", PASSWORD);
         TOKEN = getResult(url, "用户token获取失败");
     }
 
