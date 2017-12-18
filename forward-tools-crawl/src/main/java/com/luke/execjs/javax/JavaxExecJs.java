@@ -16,9 +16,10 @@ public class JavaxExecJs {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("JavaScript");
         System.out.println(engine.getClass().getName());
-//        engine.eval("var j =0; function f(i) { return j=i+1; }");
-//        String i = "10";
+        engine.eval("var j =0; function f(i) { return j=i+1; }");
+        int i = 10;
 //        System.out.println("Result:" + engine.eval("f("+ i +"); j;"));
-        System.out.println(engine.eval("document"));
+        engine.put("i", i);
+        System.out.println(engine.eval("f(i)"));
     }
 }
