@@ -15,7 +15,7 @@ public class Phantomjs {
     public static void main(String[] args) throws Exception {
 
         // 测试调用。传入url即可
-        String html = getParseredHtml2("https://pianji.net/play/128814-1-1");
+        String html = getParseredHtml2("http://www.luoqiu.com/read/10583/");
         System.out.println("html: " + html);
 
     }
