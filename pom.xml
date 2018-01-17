@@ -7,13 +7,13 @@
     <artifactId>forward</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>forward-tools-jsonanalysis</module>
         <module>forward-app-aliyunAnalysis</module>
         <module>forward-base-important</module>
         <module>forward-demo-activemq</module>
         <module>forward-demo-zookeeper</module>
-        <module>forward-tools-javaanalysis</module>
         <module>forward-tools-crawl</module>
+        <module>forward-tools-javaanalysis</module>
+        <module>forward-tools-jsonanalysis</module>
     </modules>
 
     <build>
