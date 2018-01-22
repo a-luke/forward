@@ -34,7 +34,8 @@ public class ListListenerHelperTest {
             @Override
             public void onChanged(Change<? extends List> c) {
                 //判断执行的是什么操作
-                c.next();
+                System.out.println(c.next());
+                System.out.println(c.getAddedSubList());
                 System.out.println("是否是add：" + c.wasAdded());
                 System.out.println("是否是remove：" + c.wasRemoved());
                 System.out.println(c.getList());
@@ -42,6 +43,7 @@ public class ListListenerHelperTest {
         });
 
         observableList.add(123);
+        observableList.add(45);
         observableList.remove(0);
 
     }
