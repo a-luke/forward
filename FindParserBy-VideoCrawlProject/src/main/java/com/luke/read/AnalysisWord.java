@@ -65,7 +65,7 @@ public class AnalysisWord {
         }
 
         String str = sb.toString();
-        if (!"".equals(str.replaceAll("( |\t)*", ""))) {
+        if (!"".equals(str.replaceAll("[ \t\n]*", ""))) {
             WordModel wordModel = new WordModel().setType(type);
 
             //设置单词的类型,并添加到list中

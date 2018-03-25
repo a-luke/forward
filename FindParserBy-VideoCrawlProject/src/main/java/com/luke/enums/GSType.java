@@ -4,7 +4,7 @@ package com.luke.enums;
  * Created by yangf on 2017/8/1/0001.
  */
 public enum GSType {
-    LX('('), RX(')'), LD('{'), RD('}'), LJK('<'), RJK('>'), DH(','), FH(';'), WD('a'), SY('\"'), LXG('/'), RXG('\n'), LGX('*'), DIAN('.');
+    LX('('), RX(')'),LZ('['), RZ(']'), LD('{'), RD('}'), LJK('<'), RJK('>'), ZDG('-'), DH(','), FH(';'), WD('a'), SY('\"'), LXG('/'), RXG('\n'), LGX('*'), DIAN('.'), MH(':');
 
     private Character value;
 
@@ -32,8 +32,8 @@ public enum GSType {
         return type == GSType.LD || type == GSType.RD || type == GSType.LXG;
     }
 
-    public static boolean isChunkGist(GSType type) {
-        return type == GSType.LD || type == GSType.RD;
+    public static boolean isRKH(GSType type) {
+        return type == GSType.RX || type == GSType.RD || type == GSType.RZ || type == GSType.RJK;
     }
 
     /**

@@ -1633,9 +1633,4 @@ final String url=ctx.getUrl();
         defSrcD("crunchyroll","crunchyroll","crunchyroll.com");
         defSrcD("xyylnet","星游娱乐","xyylnet.com");
         defSrcD("ctsports","楚天运动频道","ctsports.com.cn");
-        }
-public static SiteRegistryImpl getInstance(){return Helper.instance;}
-
-private static class Helper {
-    static final SiteRegistryImpl instance = new SiteRegistryImpl();
 		

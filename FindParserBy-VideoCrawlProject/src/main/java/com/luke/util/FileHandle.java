@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class FileHandle {
     public static String PATH = "";
-    public static String SOURCE_PATH = "D:\\workspaces\\FindParserBy-VideoCrawlProject\\src\\main\\resources\\crawlersAna-data.java";
+    public static String SOURCE_PATH = "D:\\Workspace\\Java\\gitHub\\forward\\FindParserBy-VideoCrawlProject\\src\\main\\resources\\crawlersAna-data.java";
 
     static {
         PATH = FileHandle.class.getResource("").getPath();
