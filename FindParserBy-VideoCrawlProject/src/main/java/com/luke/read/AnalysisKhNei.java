@@ -4,38 +4,29 @@ import com.luke.enums.GSType;
 import com.luke.model.WordModel;
 import com.luke.traverse.TraverseSource;
 import com.luke.traverse.impl.TraverseList;
+import com.luke.util.CollectionUtils;
 import com.luke.util.FileHandle;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AnalyCrawlersAna {
+public class AnalysisKhNei {
 
     private AnalysisWord analysisWord;
 
     private TraverseSource<WordModel> traverseSource;
-    private List<List<WordModel>> sentenceModel = new ArrayList<>();
+    public List<List<WordModel>> sentenceModel = new ArrayList<>();
     private List<WordModel> note = new ArrayList<>();
 
 
-    public AnalyCrawlersAna(String path) {
-        this.analysisWord = new AnalysisWord(path);
-        traverseSource = new TraverseList(analysisWord.getWordModels());
+    public AnalysisKhNei(List<WordModel> seed) {
+        traverseSource = new TraverseList(seed);
     }
 
-
-    public static void main(String[] args) {
-        AnalyCrawlersAna analyCrawlersAna = new AnalyCrawlersAna(FileHandle.SOURCE_PATH);
-        analyCrawlersAna.analysis();
-//        System.out.println(analyCrawlersAna.analysisWord);
-        Set<String> set = new HashSet<>();
-        for (List<WordModel> wordModels : analyCrawlersAna.sentenceModel) {
-            System.out.println(wordModels);
-            set.add(wordModels.get(0).getWord());
-        }
-
-        System.out.println(set);
+    public AnalysisKhNei(String path) {
+        this.analysisWord = new AnalysisWord(path);
+        traverseSource = new TraverseList(analysisWord.getWordModels());
     }
 
     Map<String, Integer> counterMap = new HashMap<String, Integer>() {{

@@ -12,7 +12,7 @@ public class ReadAllParser {
 
     private static final String PARSE_PATH = "D:\\workspaces\\VideoCrawlProject-project\\src\\com\\firstbrave\\crawler\\parser";
 
-    public Map<String, String> read() {
+    public static Map<String, String> read() {
         List<String> paths = new ArrayList<>();
         FileHandle.traversePath(paths, PARSE_PATH);
         Map<String, String> result = new HashMap();
@@ -26,6 +26,6 @@ public class ReadAllParser {
     }
 
     public static void main(String[] args) {
-        new ReadAllParser().read();
+        ReadAllParser.read();
     }
 }
